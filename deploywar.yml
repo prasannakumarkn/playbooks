@@ -1,0 +1,24 @@
+---
+  - hosts: all
+    vars:
+      tpath: /opt/
+    tasks:
+      - name: Downloading tomcat server
+        get_url:
+          url: https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.62/bin/apache-tomcat-7.0.62.tar.gz
+          dest: "{{tpath}}"
+      - name: Extracting tomcat file
+        unarchive: 
+          src: "{{tpath}}/apache-tomcat-7.0.62.tar.gz"
+          dest: "{{tpath}}"
+      - name: Exposing tomcat to port 8181
+        copy:
+          src: /root/ansimetric/server.xml
+          dest: "{{tpath}}/apache-tomcat-7.0.62/conf"
+
+      - name: Starting Tomcat server
+        shell: '/opt/apache-tomcat-7.0.62/bin/startup.sh'
+  
+      - name: download artifactory from jfrog artifactory and store it in tomcat
+        command: 'curl -o /opt/apache-tomcat-7.0.62/webapps/webapp.war "http://192.168.56.102:8082/nexus/content/repositories/mvnrelease/loginpage/loginpage/1.0/loginpage-1.0.war"'
+
