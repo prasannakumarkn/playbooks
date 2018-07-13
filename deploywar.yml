@@ -15,6 +15,7 @@
         copy:
           src: $WORKSPACE/server.xml
           dest: "{{tpath}}/apache-tomcat-7.0.62/conf"
+          remote_src: yes
 
       - name: Starting Tomcat server
         shell: '/opt/apache-tomcat-7.0.62/bin/startup.sh'
