@@ -13,7 +13,7 @@
           dest: "{{tpath}}"
       - name: Exposing tomcat to port 8181
         copy:
-          src: /root/ansimetric/server.xml
+          src: /root/completeCICD/logpage/playbooks/server.xml
           dest: "{{tpath}}/apache-tomcat-7.0.62/conf"
 
       - name: Starting Tomcat server
